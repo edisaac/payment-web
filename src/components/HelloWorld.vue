@@ -34,6 +34,10 @@
         <label>userInsert</label>
         <input v-model="debt.userInsert" type="text" />
       </div>
+      <div class="field">
+        <label>signature</label>
+        <input v-model="debt.signature" type="text" />
+      </div>
       <br />
       <input
         type="submit"
@@ -43,11 +47,20 @@
     </form>
     <br />
     <hr />
-    <form name="redirect" v-bind:action="payudata.webCheckOutUrl" method="POST" target="_blank">
+    <form
+      name="redirect"
+      v-bind:action="payudata.webCheckOutUrl"
+      method="POST"
+      target="_blank"
+    >
       <input value="Enviar a PAYU" name="submit" type="submit" />
       <br />
       <br />referenceCode
-      <input name="referenceCode" type="text" v-model="payudata.referenceCode" />
+      <input
+        name="referenceCode"
+        type="text"
+        v-model="payudata.referenceCode"
+      />
       <br />extra1
       <input name="extra1" type="text" v-model="payudata.extra1" />
 
@@ -69,27 +82,55 @@
       <br />tax
       <input name="tax" type="text" v-model="payudata.tax" />
       <br />taxReturnBase
-      <input name="taxReturnBase" type="text" v-model="payudata.taxReturnBase" />
+      <input
+        name="taxReturnBase"
+        type="text"
+        v-model="payudata.taxReturnBase"
+      />
       <br />currency
       <input name="currency" type="text" v-model="payudata.currency" />
       <br />buyerEmail
-      <input name="buyerEmail" type="text" value="test.pasarela.utec@gmail.com" />
+      <input
+        name="buyerEmail"
+        type="text"
+        value="test.pasarela.utec@gmail.com"
+      />
       <br />buyerFullName
       <input name="buyerFullName" type="text" value="Test Pasarela" />
       <br />responseUrl
       <input name="responseUrl" type="text" v-model="payudata.responseUrl" />
       <br />confirmationUrl
-      <input name="confirmationUrl" type="text" v-model="payudata.confirmationUrl" />
+      <input
+        name="confirmationUrl"
+        type="text"
+        v-model="payudata.confirmationUrl"
+      />
       <br />payerMobilePhone
       <input name="payerMobilePhone" type="text" value="969744885" />
       <br />payerFullName
-      <input name="payerFullName" type="text" v-model="payudata.payerFullName" />
+      <input
+        name="payerFullName"
+        type="text"
+        v-model="payudata.payerFullName"
+      />
       <br />payerDocument
-      <input name="payerDocument" type="text" v-model="payudata.payerDocument" />
+      <input
+        name="payerDocument"
+        type="text"
+        v-model="payudata.payerDocument"
+      />
       <br />billingAddress
-      <input name="billingAddress" type="text" v-model="payudata.billingAddress" />
+      <input
+        name="billingAddress"
+        type="text"
+        v-model="payudata.billingAddress"
+      />
       <br />billingAddress2
-      <input name="billingAddress2" type="text" v-model="payudata.billingAddress2" />
+      <input
+        name="billingAddress2"
+        type="text"
+        v-model="payudata.billingAddress2"
+      />
       <br />billingCountry
       <input name="billingCountry" type="text" value="PE" />
       <br />billingCity
@@ -119,13 +160,13 @@ export default {
         amount: 100.5,
         actionOnDueDate: 'none',
         originId: 1,
-        userInsert: 'caleidos'
+        userInsert: 'caleidos',
+        signature: 'signature'
       }
     }
   },
   methods: {
     createDebt() {
-      console.log(this.debt)
       this.$store.dispatch('createDebt', this.debt)
     }
   },
