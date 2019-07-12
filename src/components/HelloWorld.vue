@@ -34,9 +34,27 @@
         <label>userInsert</label>
         <input v-model="debt.userInsert" type="text" />
       </div>
+      <br />
       <div class="field">
-        <label>signature</label>
-        <input v-model="debt.signature" type="text" />
+        <label>paymentKey</label>
+        <input v-model="paymentKey" type="text" />
+      </div>
+      <br />
+      <div class="field">
+        <label>
+          <b>signature:</b>
+        </label>
+        <label>
+          debt.externalId + '~' +debt.amount +'~' +debt.originId +'~'
+          +debt.description +'~' +paymentKey
+        </label>
+        <br />
+        <input
+          type="button"
+          @click="generateSignature()"
+          value="generar firma"
+        />
+        <input v-model="debt.signature" type="text" readonly />
       </div>
       <br />
       <input
@@ -144,7 +162,7 @@
 
 <script>
 import { mapState } from 'vuex'
-
+import { sha256 } from 'js-sha256'
 export default {
   name: 'HelloWorld',
   props: {
@@ -152,6 +170,7 @@ export default {
   },
   data: function() {
     return {
+      paymentKey: 'paymentKey123',
       debt: {
         externalId: '999',
         dueDate: '02-01-2019 00:00:00',
@@ -161,13 +180,29 @@ export default {
         actionOnDueDate: 'none',
         originId: 1,
         userInsert: 'caleidos',
-        signature: 'signature'
+        signature: ''
       }
     }
   },
   methods: {
     createDebt() {
       this.$store.dispatch('createDebt', this.debt)
+    },
+    generateSignature() {
+      let hash = sha256.create()
+      hash.update(
+        this.debt.externalId +
+          '~' +
+          this.debt.amount +
+          '~' +
+          this.debt.originId +
+          '~' +
+          this.debt.description +
+          '~' +
+          this.paymentKey
+      )
+      hash.hex()
+      this.debt.signature = '' + hash
     }
   },
   computed: { ...mapState(['payudata']) }
